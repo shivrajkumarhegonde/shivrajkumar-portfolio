@@ -141,6 +141,63 @@
         #scrollTopBtn:hover {
             transform: scale(1.1);
         }
+        @media (max-width: 768px) {
+
+    /* --- General Adjustments --- */
+    .navbar {
+        padding: 0.8rem 1rem; /* Less padding on mobile navbar */
+    }
+    .nav-links {
+        gap: 15px; /* Less space between nav links */
+    }
+
+    /* --- Fix for Home Page --- */
+    .hero-section {
+        flex-direction: column; /* Stack text and spline vertically */
+        text-align: center;
+        height: auto; /* Let height be determined by content */
+        padding: 4rem 1rem;
+    }
+    .hero-text h1 {
+        font-size: 2.8rem; /* Reduce font size for smaller screens */
+    }
+    .hero-text p {
+        font-size: 1.2rem;
+    }
+    .hero-spline {
+        display: none; /* Hide the heavy 3D model on mobile for performance */
+    }
+
+    /* --- Fix for About Page --- */
+    .intro-section {
+        flex-direction: column; /* Stack image and text vertically */
+        text-align: center;
+        gap: 1rem;
+    }
+    .intro-image {
+        margin-bottom: 1.5rem;
+    }
+    .intro-image img {
+        width: 180px; /* Make profile picture a fixed, smaller size */
+        height: 180px;
+    }
+    .intro-text h1 {
+        font-size: 2.5rem;
+    }
+
+    /* --- Fix for Resume Page --- */
+    .resume-grid-container {
+        grid-template-columns: 1fr; /* Stack sidebar and main content */
+    }
+    .resume-sidebar {
+        position: static; /* Un-stick the sidebar on mobile */
+    }
+
+    /* --- Fix for Projects Page --- */
+    .projects-grid {
+        grid-template-columns: 1fr; /* Stack project cards on mobile */
+    }
+}
     </style>
 </head>
 <body>
