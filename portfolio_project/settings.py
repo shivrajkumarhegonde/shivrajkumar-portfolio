@@ -9,25 +9,36 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
-from decouple import config
 import os
+import environ
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Initialize django-environ
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False)
+)
+
+# reading .env file - NOW this line is AFTER BASE_DIR is defined
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=False, cast=bool)
+# This will read the value from your .env file, and default to False if not found
+DEBUG = env('DEBUG')
 
 
 ALLOWED_HOSTS = ['127.0.0.1', 'shivrajkumar-portfolio.onrender.com']
+
 
 
 # Application definition
@@ -74,7 +85,7 @@ WSGI_APPLICATION = 'portfolio_project.wsgi.application'
 
 # SENDGRID CONFIGURATION
 EMAIL_BACKEND = 'sendgrid_backend.SendgridBackend'
-SENDGRID_API_KEY = config('SENDGRID_API_KEY') # <-- PASTE IT HERE
+SENDGRID_API_KEY = env('SENDGRID_API_KEY')
 DEFAULT_FROM_EMAIL = 'shivrajkumar.hegonde_civil21@pccoer.in'
 
 SENDGRID_SANDBOX_MODE_IN_DEBUG = False
