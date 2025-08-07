@@ -1,0 +1,275 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block title %}My Resume - Shivrajkumar Hegonde{% endblock %}
+
+{% block content %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
+
+    /* --- Main Two-Column Layout --- */
+    .resume-grid-container {
+        display: grid;
+        grid-template-columns: 380px 1fr;
+        max-width: 1400px;
+        margin: 2rem auto;
+        gap: 2rem;
+        padding: 1rem;
+    }
+
+    /* --- Left Sidebar --- */
+    .resume-sidebar {
+        background: rgba(26, 26, 26, 0.7);
+        backdrop-filter: blur(10px);
+        border-radius: 15px;
+        border: 1px solid rgba(254, 218, 106, 0.2);
+        padding: 2rem;
+        position: sticky;
+        top: 100px;
+        height: fit-content;
+    }
+    .profile-pic-container { text-align: center; margin-bottom: 1.5rem; }
+    .profile-pic-container img {
+        width: 150px; height: 150px; border-radius: 50%;
+        border: 4px solid var(--primary-color);
+        box-shadow: 0 0 20px rgba(254, 218, 106, 0.3);
+    }
+    .sidebar-section h3 {
+        font-family: 'Orbitron', sans-serif;
+        color: var(--primary-color);
+        font-size: 1.3rem;
+        border-bottom: 2px solid var(--primary-color);
+        padding-bottom: 0.5rem;
+        margin-bottom: 1rem;
+        margin-top: 2rem;
+    }
+    .profile-summary { font-size: 0.95rem; line-height: 1.6; color: #ccc; margin-bottom: 2rem;}
+
+    /* --- Main Content Area (Right Column) --- */
+    .resume-card {
+        background: rgba(26, 26, 26, 0.7); backdrop-filter: blur(10px);
+        padding: 2.5rem; margin-bottom: 2rem; border-radius: 15px;
+        border: 1px solid rgba(254, 218, 106, 0.2);
+    }
+    .resume-card h2 {
+        font-family: 'Orbitron', sans-serif; color: var(--primary-color);
+        margin-top: 0; margin-bottom: 2rem;
+        border-bottom: 2px solid var(--primary-color); padding-bottom: 1rem;
+    }
+
+    /* --- UPDATED: Skill Tag and Hover Effect Styling --- */
+    .skills-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+    .skill-tag {
+        background: linear-gradient(45deg, #333, #444); color: #ddd; padding: 5px 12px;
+        border-radius: 15px; font-size: 0.8rem; font-weight: 600;
+        border: 1px solid #555;
+        transition: all 0.3s ease; /* Animation for hover */
+    }
+    .skill-tag:hover {
+        transform: scale(1.05); /* Brighten/lift effect */
+        border-color: var(--primary-color);
+        box-shadow: 0 0 15px rgba(254, 218, 106, 0.3);
+        cursor: default;
+    }
+
+    /* Timeline & Certificate Styles */
+    .timeline { position: relative; padding: 1rem 0; }
+    .timeline::before { content: ''; position: absolute; left: 15px; top: 1rem; bottom: 1rem; width: 4px; background: var(--primary-color); border-radius: 2px; }
+    .timeline-item { margin-bottom: 2rem; position: relative; padding-left: 45px; }
+    .timeline-icon { position: absolute; left: 0; top: 5px; width: 32px; height: 32px; border-radius: 50%; background: var(--bg-color); border: 4px solid var(--primary-color); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: var(--primary-color); }
+    .timeline-date { font-weight: 700; color: var(--primary-color); }
+    .timeline-title { font-size: 1.5rem; margin: 0.5rem 0; }
+    .timeline-details { color: #ccc; } .timeline-details strong { color: var(--text-color); }
+    .certificate-item { margin-bottom: 1rem; font-size: 1.1rem; }
+
+    /* --- UPDATED: Styling for Project sub-points --- */
+    .project-item { margin-bottom: 2rem; }
+    .project-item h3 { margin: 0 0 0.5rem 0; font-size: 1.2rem; }
+    .project-item h3 a { color: var(--primary-color); text-decoration: none; } .project-item h3 a:hover { text-decoration: underline; }
+    .project-item ul { list-style: none; padding-left: 0; margin: 0; }
+    .project-item li {
+        background: rgba(0,0,0,0.2);
+        padding: 10px;
+        border-left: 3px solid var(--primary-color);
+        margin-bottom: 8px;
+        border-radius: 0 5px 5px 0;
+    }
+
+    .hidden { opacity: 0; transform: translateY(50px); transition: all 1s ease-out; }
+    .show { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 992px) {
+        .resume-grid-container { grid-template-columns: 1fr; }
+        .resume-sidebar { position: static; }
+    }
+    /* --- STYLES FOR UPGRADED CTA BUTTONS --- */
+.cta-buttons .button-group {
+    display: flex;       /* Aligns buttons side-by-side */
+    gap: 10px;           /* Creates space between the buttons */
+}
+.cta-btn {
+    flex-grow: 1;        /* Makes both buttons share the space equally */
+    text-align: center;
+    padding: 12px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;   /* Slightly smaller font to fit side-by-side */
+    border: 2px solid var(--primary-color);
+}
+.cta-btn i {
+    margin-right: 8px; /* Adds space between the icon and the text */
+}
+
+/* Primary Button Style (Solid Fill) */
+.cta-btn.primary {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+}
+
+/* Secondary Button Style (Outline) */
+.cta-btn.secondary {
+    background-color: transparent;
+    color: var(--primary-color);
+}
+
+/* --- Hover Effects --- */
+.cta-btn.primary:hover {
+    background-color: transparent;
+    color: var(--primary-color);
+    transform: translateY(-3px);
+}
+.cta-btn.secondary:hover {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    transform: translateY(-3px);
+}
+</style>
+
+<div class="resume-grid-container">
+
+    <aside class="resume-sidebar hidden">
+        <div class="profile-pic-container">
+            <img src="{% static 'images/profile__.png' %}" alt="Shivrajkumar Hegonde">
+        </div>
+        <div class="sidebar-section">
+            <h3>Strengths</h3>
+            <div class="skills-grid">
+                <span class="skill-tag">Quick Learner & Adaptable</span>
+                <span class="skill-tag">Problem-Solving Mindset</span>
+                <span class="skill-tag">Team Player</span>
+                <span class="skill-tag">Good Communication</span>
+                <span class="skill-tag">Time Management</span>
+            </div>
+        </div>
+        <div class="sidebar-section">
+            <h3>Interests</h3>
+            <div class="skills-grid">
+                <span class="skill-tag">Retro & Classic Music</span>
+                <span class="skill-tag">Exploring New Places</span>
+            </div>
+        </div>
+        <div class="sidebar-section cta-buttons">
+            <h3>Actions</h3>
+            <div class="button-group">
+                <a href="{% static 'files/Shivrajkumar_Hegonde_Resume.pdf' %}" class="cta-btn secondary" download>
+                    <i class="fa-solid fa-download"></i> Download PDF
+                </a>
+                <a href="{% url 'contact' %}" class="cta-btn primary">
+                    <i class="fa-solid fa-paper-plane"></i> Get In Touch
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <main class="resume-main">
+        <section class="resume-card hidden">
+            <h2>Profile</h2>
+            <p class="profile-summary">A highly motivated and detail-oriented B.Sc Computer Science graduate with a solid foundation in programming, web development, and database management. With hands-on experience in building real-time web applications using Django, I am eager to apply my skills in a challenging and growth-focused environment and contribute meaningfully from day one.</p>
+        </section>
+
+        <section class="resume-card hidden">
+            <h2>Technical Skills</h2>
+            <div class="sidebar-section" style="margin-top: 0;">
+                <h3 style="margin-top: 0;">Languages & Databases</h3>
+                <div class="skills-grid">
+                    <span class="skill-tag">Python</span><span class="skill-tag">C</span><span class="skill-tag">C++</span><span class="skill-tag">Java</span><span class="skill-tag">MySQL</span><span class="skill-tag">SQL</span>
+                </div>
+                <h3>Web Technologies</h3>
+                <div class="skills-grid">
+                    <span class="skill-tag">HTML</span><span class="skill-tag">CSS</span><span class="skill-tag">Bootstrap</span>
+                </div>
+                <h3>Tools & OS</h3>
+                <div class="skills-grid">
+                    <span class="skill-tag">Git</span><span class="skill-tag">GitHub</span><span class="skill-tag">VS Code</span><span class="skill-tag">MS Office</span><span class="skill-tag">Windows</span><span class="skill-tag">Basic Linux</span>
+                </div>
+                 <h3>Other Skills</h3>
+                <div class="skills-grid">
+                    <span class="skill-tag">Typing</span><span class="skill-tag">Email Communication</span><span class="skill-tag">Basic Networking</span><span class="skill-tag">Troubleshooting</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="resume-card hidden">
+            <h2>Education</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-icon"><i class="fa-solid fa-laptop-code"></i></div>
+                    <p class="timeline-date">Expected Completion: 2027</p>
+                    <h3 class="timeline-title">Master of Computer Applications (MCA)</h3>
+                    <p class="timeline-details">D.H.B Soni College, Solapur</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                    <p class="timeline-date">Completed: 2025</p>
+                    <h3 class="timeline-title">Bachelor of Science (B.Sc. ECS)</h3>
+                    <p class="timeline-details">D.H.B Soni College, Solapur - <strong>74.28%</strong></p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon"><i class="fa-solid fa-helmet-safety"></i></div>
+                    <p class="timeline-date">Completed: 2021</p>
+                    <h3 class="timeline-title">Diploma In Civil Engineering</h3>
+                    <p class="timeline-details">Government Polytechnic, Solapur - <strong>91.58%</strong></p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon"><i class="fa-solid fa-school"></i></div>
+                    <p class="timeline-date">Completed: 2018</p>
+                    <h3 class="timeline-title">SSC (10th)</h3>
+                    <p class="timeline-details">Late. V.M. Mehta High School, Solapur - <strong>78.60%</strong></p>
+                </div>
+            </div>
+        </section>
+
+        <section class="resume-card hidden">
+            <h2>Projects</h2>
+            <div class="project-item"><h3>Society Management System (Django)</h3><ul><li>Role-based logins for Admin, Tenant, and Flat Owner.</li><li>Dynamic dashboards with functionalities assigned to each role.</li><li>Modules for Notices, Complaints, Maintenance, and Profile Management.</li></ul></div>
+            <div class="project-item"><h3>School Management System (Django)</h3><ul><li>Features include MDM tracking, Achievements, and Blog Posts.</li><li>Includes an admin interface for data management and a user-friendly frontend.</li></ul></div>
+        </section>
+
+        <section class="resume-card hidden">
+            <h2>Certificates & Internships</h2>
+            <div class="certificate-item"><h3><i class="fa-solid fa-award"></i> Python for Everyone: Master the Basics – Coursera</h3></div>
+            <div class="certificate-item"><h3><i class="fa-solid fa-award"></i> Python Web Development: Building Interactive Websites – Coursera</h3></div>
+            <div class="certificate-item"><h3><i class="fa-solid fa-award"></i> Microsoft AI Classroom Series – Microsoft</h3></div>
+            <div class="certificate-item"><h3><i class="fa-solid fa-award"></i> Internship in Artificial Intelligence – CODSOFT</h3></div>
+            <div class="certificate-item"><h3><i class="fa-solid fa-award"></i> Participant: International Conference 2023-24 @ D.H.B. Soni College</h3></div>
+        </section>
+    </main>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('show');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+    const hiddenElements = document.querySelectorAll('.hidden');
+    hiddenElements.forEach((el) => observer.observe(el));
+});
+</script>
+{% endblock %}

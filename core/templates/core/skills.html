@@ -1,0 +1,172 @@
+{% extends "core/base.html" %}
+
+{% block title %}My Skills - Shivrajkumar Hegonde{% endblock %}
+
+{% block content %}
+<style>
+    /* Beautification 1: Import the Orbitron font for headings */
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
+
+    .skills-container {
+        max-width: 900px;
+        margin: 4rem auto;
+        padding: 0 1rem;
+    }
+
+    .skills-container h1 {
+        text-align: center;
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+        font-family: 'Orbitron', sans-serif;
+        font-size: 3rem;
+        /* Beautification 2: Add a glowing effect to the title */
+        text-shadow: 0 0 15px rgba(254, 218, 106, 0.3);
+    }
+
+    .skills-intro {
+        text-align: center;
+        margin-bottom: 3rem;
+        font-size: 1.1rem;
+        color: #aaa;
+    }
+
+    /* Beautification 3: Apply "Glassmorphism" effect to the category boxes */
+    .skills-category {
+        background: rgba(26, 26, 26, 0.7);
+        backdrop-filter: blur(10px);
+        padding: 2.5rem;
+        margin-bottom: 2.5rem;
+        border-radius: 15px;
+        border: 1px solid rgba(254, 218, 106, 0.2);
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    }
+
+    .skills-category h2 {
+        color: var(--primary-color);
+        border-bottom: 2px solid var(--primary-color);
+        padding-bottom: 10px;
+        margin-top: 0;
+        margin-bottom: 2rem;
+        font-family: 'Orbitron', sans-serif;
+    }
+
+    .skill {
+        margin-bottom: 1.5rem;
+    }
+
+    .skill-name {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        font-size: 1.1rem;
+    }
+
+    .skill-bar-container {
+        width: 100%;
+        background-color: rgba(0,0,0,0.3);
+        border-radius: 10px;
+        height: 12px; /* Slightly slimmer and more modern */
+        overflow: hidden; /* Important for the shine effect */
+    }
+
+    .skill-bar {
+        height: 100%;
+        width: 0; /* Starts at 0, JS will expand it */
+        border-radius: 10px;
+        transition: width 1.5s cubic-bezier(0.25, 1, 0.5, 1);
+        position: relative;
+        /* Beautification 4: Add a gradient to the skill bars */
+        background: linear-gradient(90deg, #feda6a, #ffd700);
+    }
+
+    /* Beautification 5: Add an animated "shine" effect to the progress bars */
+    .skill-bar::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0.4), rgba(255,255,255,0));
+        animation: shine-effect 2.5s infinite;
+        opacity: 0; /* Hidden by default, shown by JS */
+        transition: opacity 0.5s ease 1.5s; /* Fade in after the bar fills */
+    }
+
+    @keyframes shine-effect {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(100%); }
+    }
+
+    /* Beautification 6: Add scroll animation classes */
+    .hidden {
+        opacity: 0;
+        transform: translateY(50px);
+        transition: all 1s ease-out;
+    }
+    .show {
+        opacity: 1;
+        transform: translateY(0);
+    }
+</style>
+
+<div class="skills-container content-container">
+    <h1>Technical Skills</h1>
+    <p class="skills-intro">A snapshot of the languages, frameworks, and technologies I work with.</p>
+
+    {% for category, skills_list in skills_data.items %}
+    {# Add the 'hidden' class to each category for the scroll animation #}
+    <div class="skills-category hidden">
+        <h2>{{ category }}</h2>
+        {% for skill in skills_list %}
+        <div class="skill">
+            <span class="skill-name">{{ skill.name }}</span>
+            <div class="skill-bar-container">
+                <div class="skill-bar" data-level="{{ skill.level }}"></div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endfor %}
+
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // This improved script handles both the section fade-in and the bar animations
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Make the entire category section visible
+                    entry.target.classList.add('show');
+
+                    // Find all skill bars within the now-visible section and animate them
+                    const skillBars = entry.target.querySelectorAll('.skill-bar');
+                    skillBars.forEach(bar => {
+                        const level = bar.getAttribute('data-level');
+                        // Animate the width
+                        bar.style.width = level + '%';
+                        // After the bar fills, fade in the shine effect
+                        const shineEffect = bar.querySelector('::after');
+                        bar.style.setProperty('--shine-opacity', '1'); // Custom property trick might not be needed
+                        bar.classList.add('animate-shine'); // Let's try adding a class instead
+                    });
+
+                    // We only want this to happen once
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.2 // Trigger when 20% of the element is visible
+        });
+
+        const hiddenElements = document.querySelectorAll('.hidden');
+        hiddenElements.forEach((el) => observer.observe(el));
+
+        // Adding a style rule dynamically to trigger the shine effect
+        const styleSheet = document.createElement("style");
+        styleSheet.innerText = ".skill-bar.animate-shine::after { opacity: 1; }";
+        document.head.appendChild(styleSheet);
+    });
+</script>
+{% endblock %}

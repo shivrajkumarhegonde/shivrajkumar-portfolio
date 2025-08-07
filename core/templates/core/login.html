@@ -1,0 +1,40 @@
+{% extends "core/base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<style>
+    .auth-container {
+        max-width: 500px; margin: 4rem auto; padding: 2rem; background-color: var(--secondary-color);
+        border-radius: 10px; box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    }
+    .auth-container h1 { text-align: center; color: var(--primary-color); margin-bottom: 2rem; }
+    .auth-form ul { list-style: none; padding: 0; }
+    .auth-form li { margin-bottom: 1rem; }
+    .auth-form label { display: block; margin-bottom: 5px; color: #ccc; }
+    .auth-form input {
+        width: 100%; padding: 10px; background-color: #333; border: 2px solid #444;
+        border-radius: 5px; color: var(--text-color); font-family: 'Poppins', sans-serif;
+    }
+    .submit-btn {
+        display: block; width: 100%; padding: 15px; border: none; border-radius: 5px; 
+        background-color: var(--primary-color); color: var(--secondary-color); font-size: 1.2rem; 
+        font-weight: 700; cursor: pointer; transition: transform 0.3s ease; margin-top: 1rem;
+    }
+    .submit-btn:hover { transform: translateY(-5px); }
+    .small-text-link { text-align: center; margin-top: 1.5rem; }
+    .small-text-link a { color: var(--primary-color); text-decoration: none; font-weight: 600; }
+</style>
+
+<div class="auth-container content-container">
+    <h1>Login to Your Account</h1>
+    <form method="post" class="auth-form" novalidate>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="submit-btn">Login</button>
+        <div class="small-text-link">
+            <p>Don't have an account? <a href="{% url 'register' %}">Register here</a></p>
+        </div>
+    </form>
+</div>
+{% endblock %}

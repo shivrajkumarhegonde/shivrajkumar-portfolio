@@ -1,0 +1,34 @@
+{% extends "core/base.html" %}
+
+{% block title %}Confirm Delete{% endblock %}
+
+{% block content %}
+{# We can reuse the form container style from project_form.html #}
+<style>
+    .form-container {
+        max-width: 600px; margin: 4rem auto; padding: 2rem; background-color: var(--secondary-color);
+        border-radius: 10px; box-shadow: 0 0 20px rgba(0,0,0,0.3); text-align: center;
+    }
+    .form-container h2 { color: var(--primary-color); }
+    .form-container form { margin-top: 2rem; }
+    .btn-delete, .btn-secondary {
+        text-decoration: none; padding: 10px 20px; border-radius: 5px; font-weight: 600;
+        border: none; cursor: pointer; margin: 0 10px;
+    }
+    .btn-delete { background-color: #e74c3c; color: white; }
+    .btn-secondary { background-color: #7f8c8d; color: white; }
+</style>
+
+<div class="form-container content-container">
+    <h2>Are you sure?</h2>
+    <p>You are about to permanently delete the project titled:</p>
+    <h3>"{{ object.title }}"</h3>
+    <p>This action cannot be undone.</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn-delete">Yes, Delete</button>
+        <a href="{% url 'projects' %}" class="btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

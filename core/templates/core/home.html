@@ -1,0 +1,134 @@
+{% extends "core/base.html" %}
+
+{% block title %}Home - Shivrajkumar Hegonde{% endblock %}
+
+{% block content %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
+    /* --- Hero Section (Full Screen) --- */
+    .hero-section {
+        height: 90vh;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 5%;
+        overflow: hidden;
+        /* The old background gradient has been REMOVED from here */
+    }
+    .hero-text {
+        flex-basis: 50%;
+        z-index: 1;
+    }
+    .hero-text h1 {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 4.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        line-height: 1.2;
+        animation: slideInFromLeft 1s ease-out;
+        text-shadow: 0 0 10px rgba(254, 218, 106, 0.2);
+    }
+    .hero-text .highlight {
+        background: linear-gradient(45deg, #ffd700, #feda6a);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .hero-text p {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 1.5rem;
+        font-weight: 400;
+        margin-bottom: 2.5rem;
+        animation: slideInFromLeft 1s ease-out 0.2s;
+        animation-fill-mode: backwards;
+    }
+
+    .hero-btn {
+        display: inline-block;
+        padding: 15px 35px;
+        background: var(--primary-color);
+        color: var(--secondary-color);
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 1.2rem;
+        font-weight: 700;
+        transition: all 0.3s ease;
+        border: 2px solid var(--primary-color);
+        box-shadow: 0 0 15px rgba(254, 218, 106, 0.3);
+    }
+    .hero-btn:hover {
+        transform: translateY(-5px) scale(1.05);
+        box-shadow: 0 0 30px rgba(254, 218, 106, 0.5);
+        background: transparent;
+        color: var(--primary-color);
+    }
+
+    .hero-spline {
+        flex-basis: 50%;
+        height: 100%;
+        animation: fadeIn 2s ease-in, float 6s ease-in-out infinite;
+        overflow: hidden;
+        border-radius: 20px;
+    }
+    .hero-spline iframe {
+        width: 115%;
+        height: 115%;
+        border: none;
+    }
+
+    /* --- Typing Effect Styling (Unchanged) --- */
+    .typing-text {
+        border-right: 2px solid var(--primary-color);
+        white-space: nowrap;
+        overflow: hidden;
+        animation: typing 4s steps(40, end) infinite, blink-caret .75s step-end infinite;
+    }
+
+    /* --- Keyframes for Animations --- */
+    @keyframes typing { from { width: 0 } to { width: 100% } }
+    @keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: var(--primary-color); } }
+    @keyframes slideInFromLeft { from { transform: translateX(-100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes float {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-20px); }
+        100% { transform: translateY(0px); }
+    }
+</style>
+
+<div class="hero-section">
+    <div class="hero-text">
+        <h1>Hi, I'm <span class="highlight">Shivrajkumar</span></h1>
+        <p id="typing-effect" data-text="Software Developer"></p>
+        <a href="{% url 'projects' %}" class="hero-btn">View My Work</a>
+    </div>
+    <div class="hero-spline">
+        <iframe src='https://my.spline.design/genkubgreetingrobot-HhPODUMWcWMkp6VmYVXCdyYE/' frameborder='0' width='100%' height='100%'></iframe>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // --- JavaScript for Typing Effect ---
+    const roles = ["FullStack Developer", "MCA Student", "Tech Enthusiast", "AI Expert"];
+    let roleIndex = 0;
+    const typingElement = document.getElementById('typing-effect');
+
+    function changeTypingText() {
+        roleIndex = (roleIndex + 1) % roles.length;
+        typingElement.style.animation = 'none';
+        typingElement.offsetHeight;
+        typingElement.style.animation = '';
+        typingElement.setAttribute('data-text', roles[roleIndex]);
+
+        typingElement.classList.remove('typing-text');
+        void typingElement.offsetWidth;
+        typingElement.classList.add('typing-text');
+        typingElement.textContent = roles[roleIndex];
+    }
+
+    setInterval(changeTypingText, 4000);
+});
+</script>
+{% endblock %}

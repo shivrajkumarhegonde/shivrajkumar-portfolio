@@ -1,0 +1,83 @@
+{% extends "core/base.html" %}
+
+{% block title %}Project Form{% endblock %}
+
+{% block content %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
+
+    .form-container {
+        max-width: 800px;
+        margin: 4rem auto;
+        padding: 2.5rem;
+        background: rgba(26, 26, 26, 0.7);
+        backdrop-filter: blur(10px);
+        border-radius: 15px;
+        border: 1px solid rgba(254, 218, 106, 0.2);
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    }
+    .form-container h1 {
+        text-align: center;
+        color: var(--primary-color);
+        margin-bottom: 2rem;
+        font-family: 'Orbitron', sans-serif;
+        text-shadow: 0 0 15px rgba(254, 218, 106, 0.3);
+    }
+    .project-form p {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 1.5rem;
+    }
+    .project-form label {
+        margin-bottom: 8px;
+        color: #ccc;
+        font-weight: 600;
+    }
+    .project-form input,
+    .project-form textarea,
+    .project-form select {
+        width: 100%;
+        padding: 12px;
+        background-color: rgba(0,0,0,0.3);
+        border: 1px solid #444;
+        border-radius: 5px;
+        color: var(--text-color);
+        font-family: 'Poppins', sans-serif;
+        font-size: 1rem;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .project-form input:focus,
+    .project-form textarea:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 10px rgba(254, 218, 106, 0.3);
+    }
+    .project-form textarea {
+        min-height: 150px;
+        resize: vertical;
+    }
+    .submit-btn {
+        display: block; width: 100%; padding: 15px; border-radius: 5px;
+        font-size: 1.2rem; font-weight: 700; cursor: pointer; margin-top: 1rem;
+        background: var(--primary-color); color: var(--secondary-color);
+        border: 2px solid var(--primary-color); box-shadow: 0 0 15px rgba(254, 218, 106, 0.3);
+        transition: all 0.3s ease;
+    }
+    .submit-btn:hover {
+        transform: translateY(-5px) scale(1.02);
+        box-shadow: 0 0 30px rgba(254, 218, 106, 0.5);
+        background: transparent;
+        color: var(--primary-color);
+    }
+</style>
+
+<div class="form-container content-container">
+    <h1>{% if form.instance.pk %}Edit Project{% else %}Create New Project{% endif %}</h1>
+
+    <form method="post" class="project-form" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="submit-btn">Save Project</button>
+    </form>
+</div>
+{% endblock %}
