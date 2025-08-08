@@ -7,7 +7,6 @@ from django.core.mail import send_mail
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.decorators import login_required
 def home(request):
     context = {}
     return render(request, 'core/home.html', context)
@@ -125,15 +124,3 @@ class ProjectDeleteView(DeleteView):
     model = Project
     template_name = 'core/project_confirm_delete.html' # We need a new template for this
     success_url = reverse_lazy('projects')
-
-@login_required
-def make_me_staff(request):
-    """
-    This is a temporary view to promote a user to staff status.
-    USE ONCE AND THEN DELETE THIS CODE.
-    """
-    user = request.user
-    user.is_staff = True
-    user.is_superuser = True
-    user.save()
-    return redirect('home') # Redirect to the home page after promotion
