@@ -1,3 +1,4 @@
+import dj_database_url
 import os
 import environ
 from pathlib import Path
