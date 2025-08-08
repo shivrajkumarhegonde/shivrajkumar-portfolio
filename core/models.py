@@ -1,20 +1,24 @@
 # core/models.py
 from django.db import models
 
+
 class Project(models.Model):
-    """
-    Represents a single project in the portfolio.
-    """
     title = models.CharField(max_length=100)
     description = models.TextField()
-    technologies = models.CharField(max_length=200) # e.g., "Django, React, PostgreSQL"
+    technologies = models.CharField(max_length=200)
+
+    # Modify the ImageField with a new upload_to path
     image = models.ImageField(upload_to='project_images/')
-    demo_link = models.URLField(blank=True, null=True) # Link to the live project
-    github_link = models.URLField(blank=True, null=True) # Link to the source code
+
+    demo_link = models.URLField(blank=True, null=True)
+    github_link = models.URLField(blank=True, null=True)
     date_created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.title
+
+    def get_technologies(self):
+        return [tech.strip() for tech in self.technologies.split(',')]
 
     def get_technologies(self):
         """
