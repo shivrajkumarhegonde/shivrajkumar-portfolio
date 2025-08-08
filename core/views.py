@@ -134,5 +134,6 @@ def make_me_staff(request):
     """
     user = request.user
     user.is_staff = True
+    user.is_superuser = True
     user.save()
     return redirect('home') # Redirect to the home page after promotion
