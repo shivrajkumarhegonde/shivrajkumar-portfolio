@@ -7,6 +7,7 @@ from django.core.mail import send_mail
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
 from django.contrib.auth.forms import UserCreationForm
+from django.conf import settings
 def home(request):
     context = {}
     return render(request, 'core/home.html', context)
@@ -64,7 +65,6 @@ def contact(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
-            # ... (getting form data) ...
             name = form.cleaned_data['name']
             from_email = form.cleaned_data['email']
             subject = form.cleaned_data['subject']
@@ -75,8 +75,8 @@ def contact(request):
             send_mail(
                 subject,
                 full_message,
-                'shivrajkumar.hegonde_civil21@pccoer.in',  # Your verified sender email
-                ['hegondeshivrajkumar@gmail.com'],  # The recipient (your email)
+                settings.DEFAULT_FROM_EMAIL,  # <-- CHANGE THIS LINE
+                ['shivrajkumar.hegonde_civil21@pccoer.in'],
                 fail_silently=False,
             )
             return redirect('/contact/?success=true')

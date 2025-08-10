@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'core',
     'cloudinary',
     'cloudinary_storage',
+    #'widget_tweaks',
 ]
 
 MIDDLEWARE = [
@@ -76,14 +77,18 @@ DATABASES = {
 }
 
 
-# --- EMAIL CONFIGURATION ---
-EMAIL_BACKEND = 'sendgrid_backend.SendgridBackend'
-SENDGRID_API_KEY = env('SENDGRID_API_KEY')
-DEFAULT_FROM_EMAIL = 'shivrajkumar.hegonde_civil21@pccoer.in'
-SENDGRID_SANDBOX_MODE_IN_DEBUG = False
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = env('EMAIL_HOST')
+EMAIL_PORT = env('EMAIL_PORT', cast=int)
+EMAIL_USE_TLS = True
+# This is your LOGIN username for the server
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+# This is your LOGIN password/key for the server
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+# This is the email address that appears in the "From" field to recipients
+DEFAULT_FROM_EMAIL = 'shivrajkumarhegonde@gmail.com'
 
-
-# --- FILE STORAGE CONFIGURATION (STATIC & MEDIA) ---
+# FILE STORAGE CONFIGURATION (STATIC & MEDIA)
 
 # Static files (CSS, JavaScript, Project Images)
 STATIC_URL = '/static/'

@@ -135,6 +135,48 @@
         opacity: 1;
         transform: translateX(0);
     }
+    @media (max-width: 768px) {
+    .intro-section {
+        flex-direction: column;
+        text-align: center;
+    }
+    .intro-image, .intro-text {
+        flex-basis: 100%;
+    }
+    .intro-text h1 {
+        font-size: 2.2rem;
+    }
+}
+.about-section-card {
+    background: rgba(26, 26, 26, 0.6);
+    backdrop-filter: blur(15px) saturate(150%);
+    border: 1px solid rgba(254, 218, 106, 0.3);
+    box-shadow: 0 0 30px rgba(254, 218, 106, 0.15);
+}
+    .timeline::before {
+    animation: growLine 1.5s ease-out forwards;
+    transform-origin: top;
+}
+@keyframes growLine {
+    from { transform: scaleY(0); }
+    to { transform: scaleY(1); }
+}
+    .hidden {
+    opacity: 0;
+    transform: translateY(40px);
+    filter: blur(5px);
+    transition: opacity 1s ease, transform 1s ease, filter 1s ease;
+}
+.show {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+}
+.intro-text h1,
+.about-section-card h2 {
+    font-family: 'Orbitron', Arial, sans-serif;
+}
+
 </style>
 
 <div class="about-wrapper">
@@ -143,10 +185,27 @@
             <img src="{% static 'images/profile__.png' %}" alt="Shivrajkumar Hegonde">
         </div>
         <div class="intro-text">
-            <h1>Who I Am</h1>
-            <p>
-                A passionate and detail-oriented developer from Solapur with a unique journey from **Civil Engineering** to a **Master's in Computer Applications**. This diverse background has equipped me with strong analytical skills and a creative approach to problem-solving. I thrive on building efficient, scalable, and user-friendly web applications, turning complex challenges into elegant, high-performance solutions.
-            </p>
+            <h1>👨‍💻Who I Am</h1>
+            <section id="about">
+    <h2>👨‍💻 About Me</h2>
+    <p>🎓 <strong>B.Sc. Entire Computer Science</strong> student with a passion for building impactful digital solutions.</p>
+
+    <h3>💡 Tech Skills</h3>
+    <ul>
+        <li>🐍 Python | 🌐 HTML/CSS | 🗄️ MySQL</li>
+        <li>🛠️ Git & GitHub | ⚡ Django Web Framework</li>
+    </ul>
+
+    <h3>🚀 Experience Highlights</h3>
+    <ul>
+        <li>Built real-time web apps: 🏫 <em>School Management System</em>, 🏢 <em>Society Management System</em></li>
+        <li>Strong in team collaboration 🤝 & quick learning ⚡</li>
+    </ul>
+
+    <h3>🎯 Career Goal</h3>
+    <p>To join a <strong>dynamic, growth-focused team</strong> where I can contribute meaningfully from day one and level up my technical expertise 📈.</p>
+</section>
+
         </div>
     </section>
 

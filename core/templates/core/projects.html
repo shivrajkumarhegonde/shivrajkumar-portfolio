@@ -1,108 +1,172 @@
 {% extends "core/base.html" %}
 
 {% block content %}
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+
 <style>
-    /* --- Beautification 1: Import the Orbitron font for headings --- */
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
+    :root {
+        --primary-color: #feda6a;
+        --secondary-color: #1a1a1a;
+        --bg-blur: rgba(26, 26, 26, 0.7);
+        --card-border: rgba(254, 218, 106, 0.2);
+    }
 
     .projects-container {
         max-width: 1200px;
         margin: 4rem auto;
         padding: 0 1rem;
     }
+
     .projects-container h1 {
         text-align: center;
         color: var(--primary-color);
         margin-bottom: 3rem;
         font-family: 'Orbitron', sans-serif;
-        font-size: 3rem;
+        font-size: clamp(2rem, 5vw, 3rem);
         text-shadow: 0 0 15px rgba(254, 218, 106, 0.3);
     }
+
     .projects-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-        gap: 2.5rem;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 2rem;
     }
+
     .project-card {
-        background: rgba(26, 26, 26, 0.7);
+        background: var(--bg-blur);
         backdrop-filter: blur(10px);
         border-radius: 15px;
-        border: 1px solid rgba(254, 218, 106, 0.2);
-        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        border: 1px solid var(--card-border);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
         overflow: hidden;
         display: flex;
         flex-direction: column;
         transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
     }
+
     .project-card:hover {
-        transform: translateY(-10px) scale(1.02);
+        transform: translateY(-8px) scale(1.02);
         border-color: rgba(254, 218, 106, 0.8);
-        box-shadow: 0 0 30px rgba(254, 218, 106, 0.3);
+        box-shadow: 0 0 30px rgba(254, 218, 106, 0.4);
     }
+
     .project-card img {
         width: 100%;
-        height: 200px;
+        height: 220px;
         object-fit: cover;
-        border-bottom: 1px solid rgba(254, 218, 106, 0.2);
+        border-bottom: 1px solid var(--card-border);
     }
+
     .project-content {
         padding: 1.5rem;
         flex-grow: 1;
         display: flex;
         flex-direction: column;
     }
+
     .project-content h3 {
         color: var(--primary-color);
-        margin-top: 0;
+        margin: 0 0 0.5rem 0;
         font-family: 'Orbitron', sans-serif;
     }
+
     .project-tech {
-        display: flex; flex-wrap: wrap; gap: 8px; margin: 1rem 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 1rem 0;
     }
+
     .tech-tag {
         background: linear-gradient(45deg, #333, #444);
-        color: #ddd; padding: 5px 12px; border-radius: 15px;
-        font-size: 0.8rem; font-weight: 600; border: 1px solid #555;
+        color: #ddd;
+        padding: 5px 12px;
+        border-radius: 15px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        border: 1px solid #555;
     }
+
     .project-links {
-        margin-top: auto; padding-top: 1rem; display: flex; gap: 1rem;
+        margin-top: auto;
+        padding-top: 1rem;
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
     }
-    .project-links a, .hero-btn {
-        display: inline-block; padding: 8px 15px; background: var(--primary-color);
-        color: var(--secondary-color); text-decoration: none; border-radius: 5px;
-        font-size: 1rem; font-weight: 700; transition: all 0.3s ease;
-        border: 2px solid var(--primary-color); box-shadow: 0 0 15px rgba(254, 218, 106, 0.3);
+
+    .project-links a,
+    .hero-btn {
+        display: inline-block;
+        padding: 8px 15px;
+        background: var(--primary-color);
+        color: var(--secondary-color);
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 1rem;
+        font-weight: 700;
+        transition: all 0.3s ease;
+        border: 2px solid var(--primary-color);
+        box-shadow: 0 0 15px rgba(254, 218, 106, 0.3);
     }
-    .project-links a:hover, .hero-btn:hover {
-        transform: translateY(-5px) scale(1.05); box-shadow: 0 0 30px rgba(254, 218, 106, 0.5);
-        background: transparent; color: var(--primary-color);
+
+    .project-links a:hover,
+    .hero-btn:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 0 25px rgba(254, 218, 106, 0.5);
+        background: transparent;
+        color: var(--primary-color);
     }
+
     .admin-controls {
-        border-top: 1px solid #444; margin-top: 1rem; padding-top: 1rem;
+        border-top: 1px solid #444;
+        margin-top: 1rem;
+        padding-top: 1rem;
         text-align: right;
     }
+
     .admin-controls a {
-        text-decoration: none; padding: 6px 12px; margin-left: 10px;
-        border-radius: 5px; font-weight: 600; color: white; transition: transform 0.2s ease;
+        text-decoration: none;
+        padding: 6px 12px;
+        margin-left: 10px;
+        border-radius: 5px;
+        font-weight: 600;
+        color: white;
+        transition: transform 0.2s ease;
     }
-    .admin-controls a:hover { transform: scale(1.1); }
-    .btn-edit { background-color: #3498db; }
-    .btn-delete { background-color: #e74c3c; }
+
+    .admin-controls a:hover {
+        transform: scale(1.1);
+    }
+
+    .btn-edit {
+        background-color: #3498db;
+    }
+
+    .btn-delete {
+        background-color: #e74c3c;
+    }
+
+    /* Animation */
     .hidden {
-        opacity: 0; transform: translateY(50px); transition: all 1s ease-out;
+        opacity: 0;
+        transform: translateY(50px);
+        transition: all 0.8s ease-out;
     }
+
     .show {
-        opacity: 1; transform: translateY(0);
+        opacity: 1;
+        transform: translateY(0);
     }
 </style>
 
-<div class="projects-container content-container">
+<div class="projects-container">
     <h1>My Work</h1>
 
     {% if user.is_authenticated %}
-        <div style="text-align: center; margin-bottom: 2rem;">
-            <a href="{% url 'project-create' %}" class="hero-btn">Add New Project</a>
-        </div>
+    <div style="text-align: center; margin-bottom: 2rem;">
+        <a href="{% url 'project-create' %}" class="hero-btn">Add New Project</a>
+    </div>
     {% endif %}
 
     <div class="projects-grid">
@@ -111,49 +175,47 @@
             <img src="{{ project.image.url }}" alt="{{ project.title }} screenshot">
             <div class="project-content">
                 <h3>{{ project.title }}</h3>
-
                 <p>{{ project.description|linebreaks }}</p>
-
                 <div class="project-tech">
                     {% for tech in project.get_technologies %}
-                        <span class="tech-tag">{{ tech }}</span>
+                    <span class="tech-tag">{{ tech }}</span>
                     {% endfor %}
                 </div>
                 <div class="project-links">
                     {% if project.demo_link %}
-                        <a href="{{ project.demo_link }}" target="_blank">Live Demo</a>
+                    <a href="{{ project.demo_link }}" target="_blank">Live Demo</a>
                     {% endif %}
                     {% if project.github_link %}
-                        <a href="{{ project.github_link }}" target="_blank">Source Code</a>
+                    <a href="{{ project.github_link }}" target="_blank">Source Code</a>
                     {% endif %}
                 </div>
                 {% if user.is_authenticated %}
-                    <div class="admin-controls">
-                        <a href="{% url 'project-update' project.pk %}" class="btn-edit">Edit</a>
-                        <a href="{% url 'project-delete' project.pk %}" class="btn-delete">Delete</a>
-                    </div>
+                <div class="admin-controls">
+                    <a href="{% url 'project-update' project.pk %}" class="btn-edit">Edit</a>
+                    <a href="{% url 'project-delete' project.pk %}" class="btn-delete">Delete</a>
+                </div>
                 {% endif %}
             </div>
         </div>
         {% empty %}
-            <p>No projects to display yet. Please add some from the front-end or admin panel.</p>
+        <p>No projects to display yet. Please add some from the front-end or admin panel.</p>
         {% endfor %}
     </div>
 </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
+            entries.forEach((entry, index) => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('show');
+                    setTimeout(() => {
+                        entry.target.classList.add('show');
+                    }, index * 100); // staggered reveal
                 }
             });
         });
 
-        const hiddenElements = document.querySelectorAll('.hidden');
-        hiddenElements.forEach((el) => observer.observe(el));
+        document.querySelectorAll('.hidden').forEach((el) => observer.observe(el));
     });
 </script>
-
 {% endblock %}

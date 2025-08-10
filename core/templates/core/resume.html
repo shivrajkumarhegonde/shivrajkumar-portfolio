@@ -145,6 +145,23 @@
     color: var(--secondary-color);
     transform: translateY(-3px);
 }
+    @media (max-width: 576px) {
+    .skills-grid {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+    .skill-tag:hover {
+    transform: scale(1.05) translateY(-2px);
+}
+.skill-tag:hover::before {
+    animation: bounce 0.3s ease;
+}
+@keyframes bounce {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-2px); }
+    100% { transform: translateY(0); }
+}
 </style>
 
 <div class="resume-grid-container">
@@ -154,22 +171,23 @@
             <img src="{% static 'images/profile__.png' %}" alt="Shivrajkumar Hegonde">
         </div>
         <div class="sidebar-section">
-            <h3>Strengths</h3>
-            <div class="skills-grid">
-                <span class="skill-tag">Quick Learner & Adaptable</span>
-                <span class="skill-tag">Problem-Solving Mindset</span>
-                <span class="skill-tag">Team Player</span>
-                <span class="skill-tag">Good Communication</span>
-                <span class="skill-tag">Time Management</span>
-            </div>
-        </div>
-        <div class="sidebar-section">
-            <h3>Interests</h3>
-            <div class="skills-grid">
-                <span class="skill-tag">Retro & Classic Music</span>
-                <span class="skill-tag">Exploring New Places</span>
-            </div>
-        </div>
+    <h3>💪 Strengths</h3>
+    <div class="skills-grid">
+        <span class="skill-tag">⚡ Quick Learner & Adaptable</span>
+        <span class="skill-tag">🧠 Problem-Solving Mindset</span>
+        <span class="skill-tag">🤝 Team Player</span>
+        <span class="skill-tag">🗣️ Good Communication</span>
+        <span class="skill-tag">⏳ Time Management</span>
+    </div>
+</div>
+
+<div class="sidebar-section">
+    <h3>🎯 Interests</h3>
+    <div class="skills-grid">
+        <span class="skill-tag">🎵 Retro & Classic Music</span>
+        <span class="skill-tag">🌍 Exploring New Places</span>
+    </div>
+</div>
         <div class="sidebar-section cta-buttons">
             <h3>Actions</h3>
             <div class="button-group">
@@ -185,34 +203,39 @@
 
     <main class="resume-main">
         <section class="resume-card hidden">
-            <h2>Profile</h2>
-            <p class="profile-summary">A highly motivated and detail-oriented B.Sc Computer Science graduate with a solid foundation in programming, web development, and database management. With hands-on experience in building real-time web applications using Django, I am eager to apply my skills in a challenging and growth-focused environment and contribute meaningfully from day one.</p>
-        </section>
+    <h2>👤 Profile</h2>
+    <p class="profile-summary">
+        💪 A highly motivated and detail-oriented <strong>B.Sc. Computer Science</strong> graduate
+        with a solid foundation in 💻 programming, 🌐 web development, and 🗄️ database management.
+        With hands-on experience in building real-time web applications using ⚡ Django, I am eager
+        to apply my skills in a 🎯 challenging and 📈 growth-focused environment and contribute meaningfully from day one 🚀.
+    </p>
+</section>
 
         <section class="resume-card hidden">
-            <h2>Technical Skills</h2>
+            <h2>💼 Technical Skills</h2>
             <div class="sidebar-section" style="margin-top: 0;">
                 <h3 style="margin-top: 0;">Languages & Databases</h3>
                 <div class="skills-grid">
-                    <span class="skill-tag">Python</span><span class="skill-tag">C</span><span class="skill-tag">C++</span><span class="skill-tag">Java</span><span class="skill-tag">MySQL</span><span class="skill-tag">SQL</span>
+                    <span class="skill-tag">🐍Python</span><span class="skill-tag">💻C</span><span class="skill-tag">💠C++</span><span class="skill-tag">☕Java</span><span class="skill-tag">🛢️MySQL</span><span class="skill-tag">🗄️SQL</span>
                 </div>
                 <h3>Web Technologies</h3>
                 <div class="skills-grid">
-                    <span class="skill-tag">HTML</span><span class="skill-tag">CSS</span><span class="skill-tag">Bootstrap</span>
+                    <span class="skill-tag">🌐HTML</span><span class="skill-tag">🎨CSS</span><span class="skill-tag">🎨Bootstrap</span>
                 </div>
                 <h3>Tools & OS</h3>
                 <div class="skills-grid">
-                    <span class="skill-tag">Git</span><span class="skill-tag">GitHub</span><span class="skill-tag">VS Code</span><span class="skill-tag">MS Office</span><span class="skill-tag">Windows</span><span class="skill-tag">Basic Linux</span>
+                    <span class="skill-tag">🔗Git</span><span class="skill-tag">🐙GitHub</span><span class="skill-tag">🖥️VS Code</span><span class="skill-tag">📄MS Office</span><span class="skill-tag">🪟 Windows</span><span class="skill-tag">🐧Basic Linux</span>
                 </div>
                  <h3>Other Skills</h3>
                 <div class="skills-grid">
-                    <span class="skill-tag">Typing</span><span class="skill-tag">Email Communication</span><span class="skill-tag">Basic Networking</span><span class="skill-tag">Troubleshooting</span>
+                    <span class="skill-tag">⌨️Typing</span><span class="skill-tag">📧Email Communication</span><span class="skill-tag">🌐Basic Networking</span><span class="skill-tag">🛠️Troubleshooting</span>
                 </div>
             </div>
         </section>
 
         <section class="resume-card hidden">
-            <h2>Education</h2>
+            <h2>🎓 Education</h2>
             <div class="timeline">
                 <div class="timeline-item">
                     <div class="timeline-icon"><i class="fa-solid fa-laptop-code"></i></div>
@@ -242,13 +265,13 @@
         </section>
 
         <section class="resume-card hidden">
-            <h2>Projects</h2>
+            <h2>📂 Projects</h2>
             <div class="project-item"><h3>Society Management System (Django)</h3><ul><li>Role-based logins for Admin, Tenant, and Flat Owner.</li><li>Dynamic dashboards with functionalities assigned to each role.</li><li>Modules for Notices, Complaints, Maintenance, and Profile Management.</li></ul></div>
             <div class="project-item"><h3>School Management System (Django)</h3><ul><li>Features include MDM tracking, Achievements, and Blog Posts.</li><li>Includes an admin interface for data management and a user-friendly frontend.</li></ul></div>
         </section>
 
         <section class="resume-card hidden">
-            <h2>Certificates & Internships</h2>
+            <h2>📜 Certificates & Internships</h2>
             <div class="certificate-item"><h3><i class="fa-solid fa-award"></i> Python for Everyone: Master the Basics – Coursera</h3></div>
             <div class="certificate-item"><h3><i class="fa-solid fa-award"></i> Python Web Development: Building Interactive Websites – Coursera</h3></div>
             <div class="certificate-item"><h3><i class="fa-solid fa-award"></i> Microsoft AI Classroom Series – Microsoft</h3></div>
