@@ -22,6 +22,7 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 SECRET_KEY = env('SECRET_KEY')
 DEBUG = env('DEBUG')
 ALLOWED_HOSTS = ['127.0.0.1', 'shivrajkumar-portfolio.onrender.com']
+ADMINS = [('Shivrajkumar Hegonde', 'shivrajkumarhegonde@gmail.com')]
 
 
 # --- APPLICATION DEFINITION ---
@@ -35,12 +36,11 @@ INSTALLED_APPS = [
     'core',
     'cloudinary',
     'cloudinary_storage',
-    #'widget_tweaks',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware', # WhiteNoise middleware
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -77,32 +77,26 @@ DATABASES = {
 }
 
 
+# --- EMAIL CONFIGURATION (for Brevo) ---
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = env('EMAIL_HOST')
 EMAIL_PORT = env('EMAIL_PORT', cast=int)
 EMAIL_USE_TLS = True
-# This is your LOGIN username for the server
 EMAIL_HOST_USER = env('EMAIL_HOST_USER')
-# This is your LOGIN password/key for the server
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
-# This is the email address that appears in the "From" field to recipients
-DEFAULT_FROM_EMAIL = 'shivrajkumarhegonde@gmail.com'
+DEFAULT_FROM_EMAIL = env('EMAIL_HOST_USER')
 
-# FILE STORAGE CONFIGURATION (STATIC & MEDIA)
 
-# Static files (CSS, JavaScript, Project Images)
+# --- FILE STORAGE CONFIGURATION (STATIC & MEDIA) ---
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
-    # DO NOT include the media folder here
 ]
-STATIC_ROOT = BASE_DIR / 'staticfiles' # This is where 'collectstatic' will put files
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-# Media files (User-uploaded content)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-# This is the modern and correct way to configure storage backends
 STORAGES = {
     "default": {
         "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
@@ -126,3 +120,23 @@ USE_I18N = True
 USE_TZ = True
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = '/'
+
+
+# --- ADD THIS LOGGING CONFIGURATION AT THE END ---
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'mail_admins': {
+            'level': 'ERROR',
+            'class': 'django.utils.log.AdminEmailHandler',
+        }
+    },
+    'loggers': {
+        'django.request': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+    },
+}
