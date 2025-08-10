@@ -18,196 +18,86 @@
             --bg-color: #0f0f0f;
         }
 
-        /* --- Beautification 1: Pre-loader Styling --- */
-        #preloader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: var(--bg-color);
-            z-index: 9999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: opacity 0.5s ease;
-        }
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 5px solid #444;
-            border-top-color: var(--primary-color);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
+        #preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--bg-color); z-index: 9999; display: flex; justify-content: center; align-items: center; transition: opacity 0.5s ease; }
+        .spinner { width: 50px; height: 50px; border: 5px solid #444; border-top-color: var(--primary-color); border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
 
-        body {
-            margin: 0;
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
-        }
+        body { margin: 0; font-family: 'Poppins', sans-serif; background-color: var(--bg-color); color: var(--text-color); line-height: 1.6; }
+        #particles-js { position: fixed; width: 100%; height: 100%; top: 0; left: 0; z-index: -1; }
+        .page-content { position: relative; z-index: 1; padding-bottom: 100px; /* Padding for footer */ }
 
-        #particles-js {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: -1;
-        }
-
-        .page-content {
-            position: relative;
-            z-index: 1;
-            padding-bottom: 100px; /* Add padding for the footer */
-        }
-
-        /* --- Beautification 2: Enhanced Navbar --- */
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.8rem 2.5rem; /* Tweak padding */
-            background-color: rgba(26, 26, 26, 0.7);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            transition: top 0.3s; /* For hiding navbar on scroll */
-        }
+        .navbar { display: flex; justify-content: space-between; align-items: center; padding: 0.8rem 2.5rem; background-color: rgba(26, 26, 26, 0.8); backdrop-filter: blur(10px); box-shadow: 0 2px 10px rgba(0,0,0,0.5); position: sticky; top: 0; z-index: 1000; transition: top 0.3s ease-in-out; }
+        .navbar--hidden { top: -80px; /* Hides navbar on scroll down */ }
         .nav-brand img { height: 50px; width: auto; vertical-align: middle; transition: transform 0.3s ease; }
         .nav-brand img:hover { transform: scale(1.1) rotate(-5deg); }
         .nav-links { list-style: none; margin: 0; padding: 0; display: flex; align-items: center; gap: 25px; }
-        .nav-links a, .nav-logout-btn {
-            color: var(--text-color); text-decoration: none; font-weight: 600;
-            position: relative; padding-bottom: 5px;
-        }
-        /* Add an animated underline effect on hover */
-        .nav-links a::after, .nav-logout-btn::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background-color: var(--primary-color);
-            transform: scaleX(0);
-            transition: transform 0.3s ease-in-out;
-        }
-        .nav-links a:hover::after, .nav-links a.active::after, .nav-logout-btn:hover::after {
-            transform: scaleX(1);
-        }
+        .nav-links a, .nav-logout-btn { color: var(--text-color); text-decoration: none; font-weight: 600; position: relative; padding-bottom: 5px; background: none; border: none; font-family: 'Poppins', sans-serif; font-size: 1rem; cursor: pointer; }
+        .nav-links a::after, .nav-logout-btn::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; background-color: var(--primary-color); transform: scaleX(0); transition: transform 0.3s ease-in-out; }
+        .nav-links a:hover::after, .nav-links a.active::after, .nav-logout-btn:hover::after { transform: scaleX(1); }
         .logout-form { margin: 0; }
-        .nav-logout-btn {
-            background: none; border: none; font-family: 'Poppins', sans-serif;
-            font-size: 1rem; cursor: pointer; padding: 0;
+        .hamburger { display: none; /* Hidden on desktop */ cursor: pointer; }
+        .hamburger .bar { display: block; width: 25px; height: 3px; margin: 5px auto; transition: all 0.3s ease-in-out; background-color: var(--text-color); }
+
+        .footer { background-color: var(--secondary-color); text-align: center; padding: 1.5rem; color: #888; font-size: 0.9rem; position: relative; z-index: 2; }
+        .footer-socials { margin-bottom: 1rem; }
+        .footer-socials a { color: #888; text-decoration: none; font-size: 1.5rem; margin: 0 10px; transition: color 0.3s ease; }
+        .footer-socials a:hover { color: var(--primary-color); }
+
+        #scrollTopBtn { display: none; position: fixed; bottom: 20px; right: 20px; z-index: 101; background-color: var(--primary-color); color: var(--secondary-color); border: none; border-radius: 50%; width: 50px; height: 50px; font-size: 1.5rem; cursor: pointer; box-shadow: 0 0 15px rgba(254, 218, 106, 0.4); transition: transform 0.3s ease, opacity 0.3s ease; }
+        #scrollTopBtn:hover { transform: scale(1.1); }
+
+        /* --- Mobile Responsive Styles --- */
+        @media (max-width: 992px) {
+            .navbar { padding: 0.8rem 1.5rem; }
+            .nav-links {
+                position: fixed;
+                left: -100%; /* Start off-screen */
+                top: 0;
+                gap: 0;
+                flex-direction: column;
+                background-color: rgba(15, 15, 15, 0.95);
+                backdrop-filter: blur(20px);
+                width: 100%;
+                height: 100vh;
+                text-align: center;
+                justify-content: center;
+                transition: left 0.3s ease;
+            }
+            .nav-links.active {
+                left: 0; /* Slide in */
+            }
+            .nav-links li {
+                padding: 1.5rem 0;
+            }
+            .nav-links a, .nav-logout-btn { font-size: 1.5rem; }
+            .hamburger {
+                display: block;
+                z-index: 1001; /* Ensure it's above the slide-out menu */
+            }
+            /* Hamburger animation to "X" */
+            .hamburger.active .bar:nth-child(2) { opacity: 0; }
+            .hamburger.active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+            .hamburger.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+            /* Existing responsive fixes */
+            .hero-section { flex-direction: column; text-align: center; height: auto; padding: 4rem 1rem; }
+            .hero-text h1 { font-size: 2.8rem; }
+            .hero-spline { display: none; }
+            .intro-section { flex-direction: column; text-align: center; gap: 1rem; }
+            .intro-image img { width: 180px; height: 180px; }
+            .resume-grid-container { grid-template-columns: 1fr; }
+            .resume-sidebar { position: static; }
+            .projects-grid { grid-template-columns: 1fr; }
         }
-
-        /* --- Beautification 3: A simple, clean footer --- */
-        .footer {
-            background-color: var(--secondary-color);
-            text-align: center;
-            padding: 1.5rem;
-            color: #888;
-            font-size: 0.9rem;
-            position: relative;
-            z-index: 2;
-        }
-
-        /* --- Beautification 4: "Scroll to Top" Button --- */
-        #scrollTopBtn {
-            display: none;
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 101;
-            background-color: var(--primary-color);
-            color: var(--secondary-color);
-            border: none;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            font-size: 1.5rem;
-            cursor: pointer;
-            box-shadow: 0 0 15px rgba(254, 218, 106, 0.4);
-            transition: transform 0.3s ease, opacity 0.3s ease;
-        }
-        #scrollTopBtn:hover {
-            transform: scale(1.1);
-        }
-        @media (max-width: 768px) {
-
-    /* --- General Adjustments --- */
-    .navbar {
-        padding: 0.8rem 1rem; /* Less padding on mobile navbar */
-    }
-    .nav-links {
-        gap: 15px; /* Less space between nav links */
-    }
-
-    /* --- Fix for Home Page --- */
-    .hero-section {
-        flex-direction: column; /* Stack text and spline vertically */
-        text-align: center;
-        height: auto; /* Let height be determined by content */
-        padding: 4rem 1rem;
-    }
-    .hero-text h1 {
-        font-size: 2.8rem; /* Reduce font size for smaller screens */
-    }
-    .hero-text p {
-        font-size: 1.2rem;
-    }
-    .hero-spline {
-        display: none; /* Hide the heavy 3D model on mobile for performance */
-    }
-
-    /* --- Fix for About Page --- */
-    .intro-section {
-        flex-direction: column; /* Stack image and text vertically */
-        text-align: center;
-        gap: 1rem;
-    }
-    .intro-image {
-        margin-bottom: 1.5rem;
-    }
-    .intro-image img {
-        width: 180px; /* Make profile picture a fixed, smaller size */
-        height: 180px;
-    }
-    .intro-text h1 {
-        font-size: 2.5rem;
-    }
-
-    /* --- Fix for Resume Page --- */
-    .resume-grid-container {
-        grid-template-columns: 1fr; /* Stack sidebar and main content */
-    }
-    .resume-sidebar {
-        position: static; /* Un-stick the sidebar on mobile */
-    }
-
-    /* --- Fix for Projects Page --- */
-    .projects-grid {
-        grid-template-columns: 1fr; /* Stack project cards on mobile */
-    }
-}
     </style>
 </head>
 <body>
     <div id="preloader"><div class="spinner"></div></div>
-
     <div id="particles-js"></div>
 
     <nav class="navbar" id="navbar">
         <a href="{% url 'home' %}" class="nav-brand">
-            <img src="{% static 'images/Logo____1__-_Copy-removebg-preview.png' %}" alt="ShivPal Portfolio Logo">
+            <img src="{% static 'images/logo.png' %}" alt="ShivPal Portfolio Logo">
         </a>
         <ul class="nav-links">
             <li><a href="{% url 'home' %}" class="{% if request.path == '/' %}active{% endif %}">Home</a></li>
@@ -216,26 +106,28 @@
             <li><a href="{% url 'projects' %}" class="{% if 'projects' in request.path %}active{% endif %}">Projects</a></li>
             <li><a href="{% url 'resume' %}" class="{% if 'resume' in request.path %}active{% endif %}">Resume</a></li>
             <li><a href="{% url 'contact' %}" class="{% if 'contact' in request.path %}active{% endif %}">Contact</a></li>
-
             {% if user.is_authenticated %}
-                <li>
-                    <form class="logout-form" method="post" action="{% url 'logout' %}">
-                        {% csrf_token %}
-                        <button type="submit" class="nav-logout-btn">Logout</button>
-                    </form>
-                </li>
+                <li><form class="logout-form" method="post" action="{% url 'logout' %}">{% csrf_token %}<button type="submit" class="nav-logout-btn">Logout</button></form></li>
             {% else %}
                 <li><a href="{% url 'login' %}">Login</a></li>
             {% endif %}
         </ul>
+        <div class="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
     </nav>
 
     <main class="page-content">
-        {% block content %}
-        {% endblock %}
+        {% block content %}{% endblock %}
     </main>
 
     <footer class="footer">
+        <div class="footer-socials">
+            <a href="https://linkedin.com/in/shivrajkumar-hegonde" target="_blank"><i class="fab fa-linkedin"></i></a>
+            <a href="https://github.com/shivrajkumarhegonde" target="_blank"><i class="fab fa-github"></i></a>
+        </div>
         © 2025 Shivrajkumar Hegonde. All Rights Reserved.
     </footer>
 
@@ -244,18 +136,28 @@
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // --- Pre-loader script ---
             const preloader = document.getElementById('preloader');
+            const scrollTopBtn = document.getElementById('scrollTopBtn');
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-links');
+            const navBar = document.getElementById('navbar');
+
+            // Pre-loader
             window.addEventListener('load', () => {
                 preloader.style.opacity = '0';
                 setTimeout(() => { preloader.style.display = 'none'; }, 500);
             });
 
-            // --- Particles.js script ---
+            // Particles.js
             particlesJS('particles-js', {"particles":{"number":{"value":50,"density":{"enable":true,"value_area":800}},"color":{"value":"#feda6a"},"shape":{"type":"circle"},"opacity":{"value":0.5,"random":true},"size":{"value":3,"random":true},"line_linked":{"enable":true,"distance":150,"color":"#feda6a","opacity":0.3,"width":1},"move":{"enable":true,"speed":3,"direction":"none","random":true,"straight":false,"out_mode":"out","bounce":false}},"interactivity":{"detect_on":"canvas","events":{"onhover":{"enable":true,"mode":"repulse"},"onclick":{"enable":false},"resize":true},"modes":{"repulse":{"distance":100,"duration":0.4}}},"retina_detect":true});
 
-            // --- "Scroll to Top" button script ---
-            const scrollTopBtn = document.getElementById('scrollTopBtn');
+            // Hamburger Menu Toggle
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+
+            // "Scroll to Top" Button
             window.onscroll = function() {
                 if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
                     scrollTopBtn.style.display = "block";
@@ -266,6 +168,18 @@
             scrollTopBtn.addEventListener('click', () => {
                 window.scrollTo({top: 0, behavior: 'smooth'});
             });
+
+            // Hide/Show Navbar on Scroll
+            let lastScrollTop = 0;
+            window.addEventListener("scroll", function() {
+                let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                if (scrollTop > lastScrollTop && scrollTop > 80) { // On scroll down
+                    navBar.classList.add('navbar--hidden');
+                } else { // On scroll up
+                    navBar.classList.remove('navbar--hidden');
+                }
+                lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+            }, false);
         });
     </script>
 </body>
