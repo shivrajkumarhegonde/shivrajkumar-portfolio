@@ -92,19 +92,6 @@ def resume(request):
     """
     return render(request, 'core/resume.html')
 
-def register(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save() # This saves the new user to the database
-            # You can add a success message here if you want
-            return redirect('login') # Redirect to the login page after successful registration
-    else:
-        form = UserCreationForm()
-
-    context = {'form': form}
-    return render(request, 'core/register.html', context)
-
 class ProjectCreateView(CreateView):
     model = Project
     # These are the fields that will appear on the form

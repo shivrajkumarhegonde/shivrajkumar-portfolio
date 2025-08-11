@@ -106,11 +106,14 @@
             <li><a href="{% url 'projects' %}" class="{% if 'projects' in request.path %}active{% endif %}">Projects</a></li>
             <li><a href="{% url 'resume' %}" class="{% if 'resume' in request.path %}active{% endif %}">Resume</a></li>
             <li><a href="{% url 'contact' %}" class="{% if 'contact' in request.path %}active{% endif %}">Contact</a></li>
-            {% if user.is_authenticated %}
-                <li><form class="logout-form" method="post" action="{% url 'logout' %}">{% csrf_token %}<button type="submit" class="nav-logout-btn">Logout</button></form></li>
-            {% else %}
-                <li><a href="{% url 'login' %}">Login</a></li>
-            {% endif %}
+           {% if user.is_authenticated %}
+    <li>
+        <form class="logout-form" method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit" class="nav-logout-btn">Logout</button>
+        </form>
+    </li>
+{% endif %}
         </ul>
         <div class="hamburger">
             <span class="bar"></span>
